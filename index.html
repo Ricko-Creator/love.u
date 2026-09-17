@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Wifeyy - My Heart & Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ffb6c1;
+            --dark-pink: #d87093;
+            --text-color: #6a3240;
+            --bg-gradient: linear-gradient(135deg, #fff0f3 0%, #ffe4e8 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(216, 112, 147, 0.15);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        /* Header */
+        .header-section {
+            text-align: center;
+        }
+        .main-heart {
+            font-size: 60px;
+            color: var(--dark-pink);
+            margin-bottom: 15px;
+            animation: pulse 1.5s infinite;
+        }
+        .header-section h1 {
+            font-size: 26px;
+            color: var(--dark-pink);
+            font-weight: 900;
+        }
+        .header-section p {
+            font-size: 16px;
+            margin-top: 8px;
+            opacity: 0.85;
+            font-weight: 600;
+        }
+
+        /* Reasons Section */
+        .reasons-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-pink);
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-pink);
+            display: block;
+            padding-bottom: 5px;
+        }
+        .reason-item {
+            background: #fff0f3;
+            margin-bottom: 12px;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid #ffcdd6;
+        }
+
+        /* The Main Note Section */
+        .main-note-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+        }
+        .love-letter-text {
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--text-color);
+            margin-bottom: 25px;
+            font-weight: 400;
+            text-align: left;
+        }
+        .signature {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark-pink);
+        }
+
+        /* Interactive Balloons */
+        .balloons-container {
+            position: relative;
+            height: 290px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+            padding-top: 40px;
+        }
+        .balloon-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 100%;
+            padding: 0 25px;
+        }
+        .balloon {
+            background: var(--primary-pink);
+            height: 75px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s, opacity 0.3s;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-size: 28px;
+        }
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: #ffcdd6;
+        }
+        .balloon:hover {
+            transform: scale(1.1) translateY(-5px);
+            background: var(--dark-pink);
+        }
+        .balloon.popped {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        /* Popup Message */
+        .message-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            color: var(--text-color);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 1000;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 700;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid var(--primary-pink);
+            max-width: 85%;
+        }
+        .message-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .close-popup {
+            position: absolute;
+            top: 8px;
+            right: 14px;
+            font-size: 18px;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header-section">
+            <div class="main-heart">❤️</div>
+            <h1>To My Dearest Wifeyy</h1>
+            <p>You mean absolute world to me.</p>
+        </div>
+
+        <!-- Reasons Why I Love You -->
+        <div class="reasons-section">
+            <span class="section-title">Why You Mean Everything To Me</span>
+            <div class="reason-item">You are the first thought in my mind every single morning. ☀️</div>
+            <div class="reason-item">Your laugh has the power to fix any bad day I'm having. 🥰</div>
+            <div class="reason-item">No matter the miles between us, you always feel so close to my heart. 🌍</div>
+            <div class="reason-item">Every moment we share becomes my favorite memory. ✨</div>
+            <div class="reason-item">You are my home, my peace, and my greatest blessing. 💍</div>
+        </div>
+
+        <!-- Interactive Balloons -->
+        <div class="balloons-container">
+            <span class="section-title" style="position: absolute; top: 15px;">Tap a Balloon for a Secret Message</span>
+            <div class="balloon-grid">
+                <div class="balloon" onclick="popBalloon(this, 'No distance can ever change how deeply I care about you. You are my forever. ❤️')">💌</div>
+                <div class="balloon" onclick="popBalloon(this, 'Thank you for choosing me and walking this journey with me. I appreciate you endlessly. 🌹')">✨</div>
+                <div class="balloon" onclick="popBalloon(this, 'You are the most precious person in my life, today and always. 💎')">🥰</div>
+                <div class="balloon" onclick="popBalloon(this, 'Just wanted to remind you how gorgeous, smart, and amazing you are! 😍')">🌸</div>
+                <div class="balloon" onclick="popBalloon(this, 'Counting down every single day until we are together again. ✈️❤️')">⏳</div>
+                <div class="balloon" onclick="popBalloon(this, 'I love you more than words could ever explain, my wifeyy. ♾️')">💖</div>
+            </div>
+        </div>
+
+        <!-- Heartfelt Note -->
+        <div class="main-note-section">
+            <span class="section-title">A Little Note From My Heart</span>
+            <div class="love-letter-text">
+                I built this little page just to remind you how much you truly mean to me. Even when life gets busy or distance tries to get in the way, you are always, always on my mind and in my heart. You bring so much light, warmth, and happiness into my world. Thank you for being the wonderful woman you are, and for making my life infinitely better just by being in it. I love you more than you'll ever know.
+            </div>
+            <div class="signature">Forever Yours, <br> Your Loving Husband</div>
+        </div>
+    </div>
+
+    <!-- Popup Message -->
+    <div id="popup" class="message-popup">
+        <span class="close-popup" onclick="closePopup()">×</span>
+        <p id="popup-text"></p>
+    </div>
+
+    <script>
+        function popBalloon(element, message) {
+            if (!element.classList.contains('popped')) {
+                element.classList.add('popped');
+                showPopup(message);
+            }
+        }
+
+        function showPopup(message) {
+            const popup = document.getElementById('popup');
+            const popupText = document.getElementById('popup-text');
+            popupText.innerText = message;
+            popup.classList.add('show');
+        }
+
+        function closePopup() {
+            document.getElementById('popup').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
